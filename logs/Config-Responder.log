@@ -1,0 +1,240 @@
+Current environment is:
+Network Config:
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.210  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::20c:29ff:fe09:b76  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:09:0b:76  txqueuelen 1000  (Ethernet)
+        RX packets 5318126  bytes 468337152 (446.6 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 7987086  bytes 10505204929 (9.7 GiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+        RX packets 3028894  bytes 516038514 (492.1 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 3028894  bytes 516038514 (492.1 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+DNS Settings:
+nameserver 192.168.1.1
+
+Routing info:
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         192.168.1.1     0.0.0.0         UG        0 0          0 eth0
+0.0.0.0         192.168.1.1     0.0.0.0         UG        0 0          0 eth0
+192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 eth0
+
+
+
+Settings class:
+    Settings.AnalyzeLogFile = /root/tools/Responder/logs/Analyzer-Session.log
+    Settings.AnalyzeLogger = <logging.Logger object at 0x7f84818b7790>
+    Settings.AnalyzeMode = False
+    Settings.AutoIgnore = False
+    Settings.AutoIgnoreList = []
+    Settings.Basic = False
+    Settings.Bind_To = 192.168.1.210
+    Settings.Bind_To_ALL = False
+    Settings.CaptureMultipleCredentials = True
+    Settings.CaptureMultipleHashFromSameHost = True
+    Settings.Challenge = 
+    Settings.CommandLine = ['Responder.py', '-I', 'eth0', '-wFrP', '-s']
+    Settings.DNS_On_Off = True
+    Settings.DatabaseFile = /root/tools/Responder/Responder.db
+    Settings.DontRespondTo = []
+    Settings.DontRespondToName = ['ISATAP']
+    Settings.Exe_DlName = ProxyClient.exe
+    Settings.Exe_Filename = files/BindShell.exe
+    Settings.ExpandIPRanges = <bound method Settings.ExpandIPRanges of <settings.Settings instance at 0x7f84818bf170>>
+    Settings.ExternalIP = None
+    Settings.FTPLog = /root/tools/Responder/logs/FTP-Clear-Text-Password-%s.txt
+    Settings.FTP_On_Off = True
+    Settings.Finger_On_Off = False
+    Settings.Force_WPAD_Auth = True
+    Settings.HTTPBasicLog = /root/tools/Responder/logs/HTTP-Clear-Text-Password-%s.txt
+    Settings.HTTPNTLMv1Log = /root/tools/Responder/logs/HTTP-NTLMv1-Client-%s.txt
+    Settings.HTTPNTLMv2Log = /root/tools/Responder/logs/HTTP-NTLMv2-Client-%s.txt
+    Settings.HTTP_On_Off = True
+    Settings.HtmlToInject = <img src='file://RespProxySrv/pictures/logo.jpg' alt='Loading' height='1' width='1'>
+    Settings.Html_Filename = files/AccessDenied.html
+    Settings.IMAPLog = /root/tools/Responder/logs/IMAP-Clear-Text-Password-%s.txt
+    Settings.IMAP_On_Off = True
+    Settings.IP_aton = À¨Ò
+    Settings.Interface = eth0
+    Settings.KerberosLog = /root/tools/Responder/logs/MSKerberos-Client-%s.txt
+    Settings.Krb_On_Off = True
+    Settings.LDAPClearLog = /root/tools/Responder/logs/LDAP-Clear-Text-Password-%s.txt
+    Settings.LDAPNTLMv1Log = /root/tools/Responder/logs/LDAP-NTLMv1-Client-%s.txt
+    Settings.LDAP_On_Off = True
+    Settings.LM_On_Off = False
+    Settings.LogDir = /root/tools/Responder/logs
+    Settings.MSSQLClearLog = /root/tools/Responder/logs/MSSQL-Clear-Text-Password-%s.txt
+    Settings.MSSQLNTLMv1Log = /root/tools/Responder/logs/MSSQL-NTLMv1-Client-%s.txt
+    Settings.MSSQLNTLMv2Log = /root/tools/Responder/logs/MSSQL-NTLMv2-Client-%s.txt
+    Settings.NBTNSDomain = False
+    Settings.NumChal = random
+    Settings.OURIP = None
+    Settings.Os_version = linux2
+    Settings.POP3Log = /root/tools/Responder/logs/POP3-Clear-Text-Password-%s.txt
+    Settings.POP_On_Off = True
+    Settings.PoisonersLogFile = /root/tools/Responder/logs/Poisoners-Session.log
+    Settings.PoisonersLogger = <logging.Logger object at 0x7f84818b7750>
+    Settings.ProxyAuth_On_Off = True
+    Settings.RespondTo = []
+    Settings.RespondToName = []
+    Settings.ResponderConfigDump = /root/tools/Responder/logs/Config-Responder.log
+    Settings.ResponderPATH = /root/tools/Responder
+    Settings.SMBClearLog = /root/tools/Responder/logs/SMB-Clear-Text-Password-%s.txt
+    Settings.SMBNTLMSSPv1Log = /root/tools/Responder/logs/SMB-NTLMSSPv1-Client-%s.txt
+    Settings.SMBNTLMSSPv2Log = /root/tools/Responder/logs/SMB-NTLMSSPv2-Client-%s.txt
+    Settings.SMBNTLMv1Log = /root/tools/Responder/logs/SMB-NTLMv1-Client-%s.txt
+    Settings.SMBNTLMv2Log = /root/tools/Responder/logs/SMB-NTLMv2-Client-%s.txt
+    Settings.SMB_On_Off = True
+    Settings.SMTPClearLog = /root/tools/Responder/logs/SMTP-Clear-Text-Password-%s.txt
+    Settings.SMTP_On_Off = True
+    Settings.SQL_On_Off = True
+    Settings.SSLCert = certs/responder.crt
+    Settings.SSLKey = certs/responder.key
+    Settings.SSL_On_Off = True
+    Settings.Serve_Always = False
+    Settings.Serve_Exe = False
+    Settings.Serve_Html = False
+    Settings.SessionLogFile = /root/tools/Responder/logs/Responder-Session.log
+    Settings.Status_On_Off = True
+    Settings.Upstream_Proxy = None
+    Settings.Verbose = None
+    Settings.WPAD_On_Off = True
+    Settings.WPAD_Script = function FindProxyForURL(url, host){if ((host == "localhost") || shExpMatch(host, "localhost.*") ||(host == "127.0.0.1") || isPlainHostName(host)) return "DIRECT"; if (dnsDomainIs(host, "ProxySrv")||shExpMatch(host, "(*.ProxySrv|ProxySrv)")) return "DIRECT"; return 'PROXY ProxySrv:3128; PROXY ProxySrv:3141; DIRECT';}
+    Settings.Wredirect = True
+    Settings.__doc__ = None
+    Settings.__init__ = <bound method Settings.__init__ of <settings.Settings instance at 0x7f84818bf170>>
+    Settings.__module__ = settings
+    Settings.__str__ = <bound method Settings.__str__ of <settings.Settings instance at 0x7f84818bf170>>
+    Settings.populate = <bound method Settings.populate of <settings.Settings instance at 0x7f84818bf170>>
+    Settings.toBool = <bound method Settings.toBool of <settings.Settings instance at 0x7f84818bf170>>
+
+Current environment is:
+Network Config:
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.210  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::20c:29ff:fe09:b76  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:09:0b:76  txqueuelen 1000  (Ethernet)
+        RX packets 5318292  bytes 468348122 (446.6 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 7987222  bytes 10505213089 (9.7 GiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+        RX packets 3028894  bytes 516038514 (492.1 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 3028894  bytes 516038514 (492.1 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+DNS Settings:
+nameserver 192.168.1.1
+
+Routing info:
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         192.168.1.1     0.0.0.0         UG        0 0          0 eth0
+0.0.0.0         192.168.1.1     0.0.0.0         UG        0 0          0 eth0
+192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 eth0
+
+
+
+Settings class:
+    Settings.AnalyzeLogFile = /root/tools/Responder/logs/Analyzer-Session.log
+    Settings.AnalyzeLogger = <logging.Logger object at 0x7f2377e46790>
+    Settings.AnalyzeMode = False
+    Settings.AutoIgnore = False
+    Settings.AutoIgnoreList = []
+    Settings.Basic = False
+    Settings.Bind_To = 192.168.1.210
+    Settings.Bind_To_ALL = False
+    Settings.CaptureMultipleCredentials = True
+    Settings.CaptureMultipleHashFromSameHost = True
+    Settings.Challenge = 
+    Settings.CommandLine = ['Responder.py', '-I', 'eth0', '-wFrP', '-s']
+    Settings.DNS_On_Off = True
+    Settings.DatabaseFile = /root/tools/Responder/Responder.db
+    Settings.DontRespondTo = []
+    Settings.DontRespondToName = ['ISATAP']
+    Settings.Exe_DlName = ProxyClient.exe
+    Settings.Exe_Filename = files/BindShell.exe
+    Settings.ExpandIPRanges = <bound method Settings.ExpandIPRanges of <settings.Settings instance at 0x7f2377e4e170>>
+    Settings.ExternalIP = None
+    Settings.FTPLog = /root/tools/Responder/logs/FTP-Clear-Text-Password-%s.txt
+    Settings.FTP_On_Off = True
+    Settings.Finger_On_Off = False
+    Settings.Force_WPAD_Auth = True
+    Settings.HTTPBasicLog = /root/tools/Responder/logs/HTTP-Clear-Text-Password-%s.txt
+    Settings.HTTPNTLMv1Log = /root/tools/Responder/logs/HTTP-NTLMv1-Client-%s.txt
+    Settings.HTTPNTLMv2Log = /root/tools/Responder/logs/HTTP-NTLMv2-Client-%s.txt
+    Settings.HTTP_On_Off = True
+    Settings.HtmlToInject = <img src='file://RespProxySrv/pictures/logo.jpg' alt='Loading' height='1' width='1'>
+    Settings.Html_Filename = files/AccessDenied.html
+    Settings.IMAPLog = /root/tools/Responder/logs/IMAP-Clear-Text-Password-%s.txt
+    Settings.IMAP_On_Off = True
+    Settings.IP_aton = À¨Ò
+    Settings.Interface = eth0
+    Settings.KerberosLog = /root/tools/Responder/logs/MSKerberos-Client-%s.txt
+    Settings.Krb_On_Off = True
+    Settings.LDAPClearLog = /root/tools/Responder/logs/LDAP-Clear-Text-Password-%s.txt
+    Settings.LDAPNTLMv1Log = /root/tools/Responder/logs/LDAP-NTLMv1-Client-%s.txt
+    Settings.LDAP_On_Off = True
+    Settings.LM_On_Off = False
+    Settings.LogDir = /root/tools/Responder/logs
+    Settings.MSSQLClearLog = /root/tools/Responder/logs/MSSQL-Clear-Text-Password-%s.txt
+    Settings.MSSQLNTLMv1Log = /root/tools/Responder/logs/MSSQL-NTLMv1-Client-%s.txt
+    Settings.MSSQLNTLMv2Log = /root/tools/Responder/logs/MSSQL-NTLMv2-Client-%s.txt
+    Settings.NBTNSDomain = False
+    Settings.NumChal = random
+    Settings.OURIP = None
+    Settings.Os_version = linux2
+    Settings.POP3Log = /root/tools/Responder/logs/POP3-Clear-Text-Password-%s.txt
+    Settings.POP_On_Off = True
+    Settings.PoisonersLogFile = /root/tools/Responder/logs/Poisoners-Session.log
+    Settings.PoisonersLogger = <logging.Logger object at 0x7f2377e46750>
+    Settings.ProxyAuth_On_Off = True
+    Settings.RespondTo = []
+    Settings.RespondToName = []
+    Settings.ResponderConfigDump = /root/tools/Responder/logs/Config-Responder.log
+    Settings.ResponderPATH = /root/tools/Responder
+    Settings.SMBClearLog = /root/tools/Responder/logs/SMB-Clear-Text-Password-%s.txt
+    Settings.SMBNTLMSSPv1Log = /root/tools/Responder/logs/SMB-NTLMSSPv1-Client-%s.txt
+    Settings.SMBNTLMSSPv2Log = /root/tools/Responder/logs/SMB-NTLMSSPv2-Client-%s.txt
+    Settings.SMBNTLMv1Log = /root/tools/Responder/logs/SMB-NTLMv1-Client-%s.txt
+    Settings.SMBNTLMv2Log = /root/tools/Responder/logs/SMB-NTLMv2-Client-%s.txt
+    Settings.SMB_On_Off = True
+    Settings.SMTPClearLog = /root/tools/Responder/logs/SMTP-Clear-Text-Password-%s.txt
+    Settings.SMTP_On_Off = True
+    Settings.SQL_On_Off = True
+    Settings.SSLCert = certs/responder.crt
+    Settings.SSLKey = certs/responder.key
+    Settings.SSL_On_Off = True
+    Settings.Serve_Always = False
+    Settings.Serve_Exe = False
+    Settings.Serve_Html = False
+    Settings.SessionLogFile = /root/tools/Responder/logs/Responder-Session.log
+    Settings.Status_On_Off = True
+    Settings.Upstream_Proxy = None
+    Settings.Verbose = None
+    Settings.WPAD_On_Off = True
+    Settings.WPAD_Script = function FindProxyForURL(url, host){if ((host == "localhost") || shExpMatch(host, "localhost.*") ||(host == "127.0.0.1") || isPlainHostName(host)) return "DIRECT"; if (dnsDomainIs(host, "ProxySrv")||shExpMatch(host, "(*.ProxySrv|ProxySrv)")) return "DIRECT"; return 'PROXY ProxySrv:3128; PROXY ProxySrv:3141; DIRECT';}
+    Settings.Wredirect = True
+    Settings.__doc__ = None
+    Settings.__init__ = <bound method Settings.__init__ of <settings.Settings instance at 0x7f2377e4e170>>
+    Settings.__module__ = settings
+    Settings.__str__ = <bound method Settings.__str__ of <settings.Settings instance at 0x7f2377e4e170>>
+    Settings.populate = <bound method Settings.populate of <settings.Settings instance at 0x7f2377e4e170>>
+    Settings.toBool = <bound method Settings.toBool of <settings.Settings instance at 0x7f2377e4e170>>
+

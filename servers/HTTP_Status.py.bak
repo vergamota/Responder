@@ -1,0 +1,187 @@
+from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+import SocketServer
+import sqlite3
+import settings
+import urlparse
+from os import curdir, sep
+
+from www.header import * 
+from www.body import * 
+from www.scripts import * 
+from www.alt import * 
+from www.footer import * 
+
+enabled = "<font color='green'>[ON]</font>"
+disabled = "<font color='red'>[OFF]</font>"
+
+class Server(BaseHTTPRequestHandler):
+
+    def _set_headers(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+
+    def do_GET(self):
+        #self._set_headers()
+	option = urlparse.parse_qs(urlparse.urlparse(self.path).query).get('option', None)
+	urlParams = urlparse.urlparse(self.path)
+	if self.path.endswith(".js"):
+		mimetype = 'application/javascript'
+		path = 'servers' + self.path
+		print path
+		f = open (path)
+		self.send_response(200)
+		self.send_header('Content-type', mimetype)
+		self.end_headers()
+		self.wfile.write(f.read())
+		f.close()
+	if self.path.endswith(".gif"):
+		mimetype = 'image/gif'
+		path = curdir + sep + self.path
+		print path 
+		f = open (path)
+		self.send_response(200)
+		self.send_header('Content-type', mimetype)
+		self.end_headers()
+		self.wfile.write(f.read())
+		f.close()
+	if self.path.endswith(".css"):
+                mimetype = 'text/css'
+                path = "servers" + self.path
+		print path
+                f = open (path)
+                self.send_response(200)
+                self.send_header('Content-type', mimetype)
+                self.end_headers()
+                self.wfile.write(f.read())
+                f.close()
+
+	if option is None: 
+		self.send_response(200)
+		self.send_header('Content-type', 'text/html')
+		self.end_headers()
+		#self.wfile.write(page_alt)
+		self._build_page()
+	elif option[0] == "clear_poison": # Clear Poison Table
+		self._conn = self._connect_to_database()
+		self._reset_poisoned(self._conn)
+		print "Poison Table Cleared!"
+	elif option[0] == "dump_hashes": #Dump Database Hashes
+		#self._conn = self._connect_to_database() 
+		#self._cred_dump(self._conn)
+		self.send_response(200) 
+		self.send_header('Content-type','text/html')
+		self.end_headers() 
+		print "Dump Hashes"
+		self.wfile.write("test back from server")
+
+    def do_POST(self):
+	self._conn = self._connect_to_database()
+	self._reset_poisoned(self._conn)
+	self._set_headers()
+	self._build_page()
+
+    def do_HEAD(self):
+        self._set_headers()
+
+
+    def _build_page(self):
+
+#---- DB Calls
+	self._conn = self._connect_to_database()
+	rst_poison = self._get_poison_stats(self._conn)
+	rst_creds = self._get_cred_stats(self._conn)
+	rst_details = self._get_details(self._conn)
+	rst_poison_details = self._get_poisoner_details(self._conn)
+	rst_get_req_names = self._get_request_names(self._conn)
+
+# --- Page Creation
+	self.wfile.write(page_header)
+	self.wfile.write(page_body)
+	self.wfile.write("\t\n\t<nav><h4>Server Information</h4>\n\t\n\t<ul>\n")
+	self.wfile.write("\t\t<li>{1}:<b> {0}</b></li>\n\t</ul>\n\t".format(settings.Config.Bind_To,settings.Config.Interface))
+	self.wfile.write("\n<hr><h4>Poisoned Routes Count:</h4>\n<ul>")
+	for rst in rst_poison:
+		self.wfile.write("\t\t<li> {0}: {1}</li>\n".format(rst[0],rst[1]))
+	self.wfile.write("</ul>\n")
+	self.wfile.write("<h4>Cred Type Count:</h4>\n<ul>")
+	for rst in rst_creds:
+		self.wfile.write("<li> {0} | {1} | {2}</li>\n".format(rst[0],rst[1],rst[2]))
+	self.wfile.write("</ul><hr>")
+	self.wfile.write("<h4>Servers</h4>")
+	self.wfile.write("<table>")
+	self.wfile.write("<tr><td>HTTP:</td><td>{0}</td></tr>".format(enabled if settings.Config.HTTP_On_Off else disabled))
+	self.wfile.write("<tr><td>HTTPS:</td><td>{0}</td></tr>".format(enabled if settings.Config.SSL_On_Off else disabled))
+	self.wfile.write("<tr><td>WPAD:</td><td>{0}</td></tr>".format(enabled if settings.Config.WPAD_On_Off else disabled))
+	self.wfile.write("<tr><td>AUTH Proxy:</td><td>{0}</td></tr>".format(enabled if settings.Config.ProxyAuth_On_Off else disabled))
+	self.wfile.write("<tr><td>SMB  Server:</td><td>{0}</td></tr>".format(enabled if settings.Config.SMB_On_Off else disabled))
+	self.wfile.write("<tr><td>Kerberos Server:</td><td>{0}</td></tr>".format(enabled if settings.Config.Krb_On_Off else disabled))
+	self.wfile.write("<tr><td>SQL Server:</td><td>{0}</td></tr>".format(enabled if settings.Config.SQL_On_Off else disabled))
+	self.wfile.write("<tr><td>FTP Server:</td><td>{0}</td></tr>".format(enabled if settings.Config.FTP_On_Off else disabled))
+	self.wfile.write("<tr><td>IMAP Server:</td><td>{0}</td></tr>".format(enabled if settings.Config.IMAP_On_Off else disabled))
+	self.wfile.write("<tr><td>POP3 Server:</td><td>{0}</td></tr>".format(enabled if settings.Config.POP_On_Off else disabled))
+	self.wfile.write("<tr><td>SMTP Server:</td><td>{0}</td></tr>".format(enabled if settings.Config.SMTP_On_Off else disabled))
+	self.wfile.write("<tr><td>DNS Server:</td><td>{0}</td></tr>".format(enabled if settings.Config.DNS_On_Off else disabled))
+	self.wfile.write("<tr><td>LDAP Server:</td><td>{0}</td></tr>".format(enabled if settings.Config.LDAP_On_Off else dsiabled))
+	self.wfile.write("</table>")
+	self.wfile.write("</nav></div>")
+	self.wfile.write("<article><h4>Captured Credentials Details</h4>")
+	self.wfile.write("<div id='captured_creds'><table><tr><th>User</th><th>Type</th><th>Client</th><th>Date</th></tr>")
+	for rst in rst_details:
+		self.wfile.write("<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>".format(rst[0],rst[1],rst[2],rst[3]))
+	self.wfile.write("</table></div></article>")
+	self.wfile.write("<article><h4>Poisoner Details</h3>")
+	self.wfile.write("<table><tr><th>Victim IP</th><th>Number of Poisons</th></tr>")
+	for rst in rst_poison_details:
+		self.wfile.write("<tr><td>{0}</td><td>{1}</td></tr>".format(rst[0],rst[1]))
+	self.wfile.write("</table></article>")
+	self.wfile.write("<article><h4>Requested Names</h3>")
+	self.wfile.write("<table><tr><th>Host Requested</th><th>Number of Requests</th></tr>")
+	for rst in rst_get_req_names:
+		self.wfile.write("<tr><td>{0}</td><td>{1}</td></tr>".format(rst[0],rst[1]))
+	self.wfile.write("</table></article>")
+	self.wfile.write(page_footer) 
+	#self.wfile.write(self._build_page_footer())
+
+
+
+
+    def _build_page_footer(self):
+	return "<footer>Happy Hunting </footer></html>"
+
+    def _connect_to_database(self):
+	conn = sqlite3.connect("./Responder.db")
+	return conn
+    def _get_db_stats(self,conn):
+	results = conn.execute("Select DISTINCT user from Responder;")
+	return results.fetchall()
+    def _get_cred_stats(self,conn):
+	results = conn.execute("SELECT DISTINCT type,module, COUNT(type) as countof from responder group by type;")
+	return results.fetchall()
+    def _get_poison_stats(self,conn):
+	results = conn.execute("select DISTINCT Poisoner, COUNT(Poisoner) as countof from Poisoned group by Poisoner;")
+	return results.fetchall()
+    def _get_details(self,conn):
+	results = conn.execute("select user,type,client,timestamp from responder;")
+	return results.fetchall()
+    def _get_poisoner_details(self,conn):
+	results = conn.execute("SELECT DISTINCT SentToIp, COUNT(SentToIp) As Countof FROM Poisoned group by SentToIp LIMIT 10;")
+	return results.fetchall()
+    def _get_request_names(self,conn):
+	results = conn.execute("SELECT DISTINCT ForName, COUNT(ForName) as CountOf FROM Poisoned group by ForName LIMIT 10;")
+	return results.fetchall()
+    def _cred_dump(self,conn):
+	results = conn.execute("SELECT fullhash FROM Responder WHERE type LIKE '%v2%' AND UPPER(user) in (SELECT DISTINCT UPPER(user) FROM Responder)")
+	return results.fetchall()
+    def _reset_poisoned(self,conn):
+	print "Clearing Database"
+	conn.execute("Delete from Poisoned;")
+	conn.commit()
+	return
+
+
+def run(server_class=HTTPServer, handler_class=Server, port=880):
+   server_address = ('', port)
+   httpd = server_class(server_address, handler_class)
+   print 'Starting Status Server on port 880 httpd...'
+   httpd.serve_forever()
