@@ -1,7 +1,7 @@
 # Responder
 Responder with an HTML Status front-end for easy monitoring
 
-## To run with HTTP Server monitor example (-s is the status server) 
+### To run with HTTP Server monitor example (-s is the status server) 
 #python Responder.py -I eth0 -rP -s 
 
 ###### snip
