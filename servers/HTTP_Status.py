@@ -245,7 +245,7 @@ class Server(BaseHTTPRequestHandler):
 	results = conn.execute("SELECT DISTINCT ForName, COUNT(ForName) as CountOf FROM Poisoned group by ForName;")
 	return results.fetchall()
     def _cred_dump(self,conn):
-	results = conn.execute("SELECT fullhash FROM Responder WHERE type LIKE '%v2%' AND UPPER(user) in (SELECT DISTINCT UPPER(user) FROM Responder)")
+	results = conn.execute("SELECT fullhash FROM Responder WHERE UPPER(user) in (SELECT DISTINCT UPPER(user) FROM Responder) order by type")
 	return results.fetchall()
     def _reset_poisoned(self,conn):
 	print "Clearing Database"
